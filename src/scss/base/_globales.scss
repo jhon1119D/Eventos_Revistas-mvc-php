@@ -1,0 +1,55 @@
+@use "variables" as v;
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+body.dark-mode {
+  background: v.$negro;
+  color: v.$blanco;
+  .toggle {
+    filter: invert(1) hue-rotate(180deg) brightness(0.8) contrast(1.2);
+  }
+}
+
+body {
+  background: url("/img/fondo-utpl.svg");
+  background-repeat: no-repeat;
+  background-size: 60rem;
+  background-position: unset;
+  font-family: v.$fuente_textos;
+  font-size: 1.6rem;
+  min-height: 100%;
+}
+
+.contenedor {
+  width: 95%;
+  max-width: 120rem; //antes era max-width 1200px
+  margin: 0 auto;
+}
+.contenedor-sm {
+  max-width: 75rem;
+  margin: 0 auto;
+}
+a {
+  text-decoration: none;
+}
+img {
+  max-width: 100%;
+}
+
+.footer-content {
+  font-size: 11px;
+  font-weight: 100;
+  margin-top: 1rem;
+  text-shadow: 2px 2px 5px grey;
+}
+
+
