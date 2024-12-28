@@ -21,7 +21,8 @@ class Router
     {
 
         // $currentUrl = $_SERVER['PATH_INFO'] ?? '/';
-        $currentUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $currentUrl = strtok($_SERVER['REQUEST_URI'], '?') ?? '/';
+        
         $method = $_SERVER['REQUEST_METHOD'];
 
         if ($method === 'GET') {
