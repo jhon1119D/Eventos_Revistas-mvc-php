@@ -17,7 +17,7 @@ $router->post('/', [LoginController::class, 'login']);
 $router->get('/actualizar', [LoginController::class, 'actualizarLogin']);
 $router->post('/actualizar', [LoginController::class, 'actualizarLogin']);
 //CERRAR SESIÓN
-$router->get('/logout', [loginController::class, 'logout']);
+$router->get('/logout', [LoginController::class, 'logout']);
 //CERRAR SESIÓN
 // ------------------------------ LOGIN
 
