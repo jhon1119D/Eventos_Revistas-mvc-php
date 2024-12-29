@@ -12,14 +12,14 @@
       <a href="/logout" class="link--salir">Salir</a>
       </li> 
       ';
-   include_once __DIR__ . "/../plantillas/Menu.php";
+   include_once __DIR__ . "../../plantillas/Menu.php";
    ?>
    <h1>Actualizar revista</h1>
    <div class="contenedor-sm">
 
 
       <?php
-      include_once __DIR__ . "/../plantillas/alertas.php";
+      include_once __DIR__ . "../../plantillas/alertas.php";
       ?>
 
       <p class="descripcion-pagina">Registro de la revista:</p>
