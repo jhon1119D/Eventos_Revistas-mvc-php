@@ -31,6 +31,7 @@
     border-radius: 5px;
     cursor: pointer;
     transition: transform 0.3s ease;
+    background-color: v.$blanco;
     &:hover {
       background-color:v.$naranja;
       /* Agranda el elemento al pasar el ratón */

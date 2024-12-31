@@ -7,7 +7,7 @@
     <div class="contenedor-sm">
         <div class="imagen">
             <!-- imagen de la utpl -->
-            <img src="/img/logo-utpl.svg" alt="Logo utpl">
+            <img src="/build/img/Logo-utpl.svg" alt="Logo utpl">
         </div>
 
         <p class="descripcion-pagina">Iniciar Sesión</p>

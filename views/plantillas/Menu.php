@@ -1,7 +1,7 @@
 <header class="header">
    <nav class="nav">
       <!-- imagen logo utpl menú -->
-      <img class="imagenM" src="/img/logo-utpl.svg" alt="Logo utpl">
+      <img class="imagenM" src="/build/img/Logo-utpl.svg" alt="Logo utpl">
 
       <div class="container__icons" id="container__icons">
          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="icons list__icon" id="list__icon" viewBox="0 0 16 16">

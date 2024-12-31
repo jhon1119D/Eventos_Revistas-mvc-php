@@ -5,7 +5,6 @@ require_once __DIR__ . '/../includes/app.php';
 use Controllers\RevistasController;
 use Controllers\LoginController;
 use Controllers\EventosController;
-use Model\Evento;
 use MVC\Router;
 
 $router = new Router();
@@ -13,7 +12,7 @@ $router = new Router();
 // ------------------------------ LOGIN
 $router->get('/', [LoginController::class, 'login']);
 $router->post('/', [LoginController::class, 'login']);
-
+// ------------------------------------------------------------
 $router->get('/actualizar', [LoginController::class, 'actualizarLogin']);
 $router->post('/actualizar', [LoginController::class, 'actualizarLogin']);
 //CERRAR SESIÓN
@@ -65,9 +64,6 @@ $router->post('/buscar_eventos_admin', [EventosController::class, 'buscarAdmin']
 $router->get('/buscar_eventos_publico', [EventosController::class, 'buscarPublico']);
 $router->post('/buscar_eventos_publico', [eventosController::class, 'buscarPublico']);
 // BUSCAR EVENTOS EN EL ADMINISTRADOR Y PUBLICO
-
-
-
 
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador

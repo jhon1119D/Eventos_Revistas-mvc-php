@@ -196,7 +196,7 @@ class EventosController
         // Verificar si el usuario está autenticado 
         $datos = self::buscar();
         $alertas = Evento::getAlertas();
-        $router->render('admin/eventos', [
+        $router->render('admin/Eventos', [
             'datos' => $datos,
             'alertas' => $alertas
         ]);

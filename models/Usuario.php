@@ -69,7 +69,7 @@ class Usuario extends ActiveRecord
         $usuario = self::buscarPorNombre($antiguoNombre);
         if ($usuario && $usuario->comprobarContraseña($antiguaContraseña)) {
             // Validación de la longitud de la nueva contraseña 
-            if (strlen($nuevaContraseña) <= 4) {
+            if (strlen($nuevaContraseña) < 4) {
                 self::$alertas['error'][] = 'La nueva contraseña debe tener al menos 4 caracteres.';
                 return;
             }
