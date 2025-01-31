@@ -16,7 +16,7 @@
     if (isset($_SESSION['email']) && $_SESSION['email'] === 'lenciso@utpl.edu.ec') {
         $menu_links .= '
 <li class="li__links">
-<a href="/PaginaAdmin" class="link">Administradores</a>
+<a href="/actualizar_codigo" class="link">Administradores</a>
 </li>';
     }
 
@@ -28,6 +28,10 @@
 
     include_once __DIR__ . "../../plantillas/Menu.php";
     ?>
+    <a <a href="/actualizar_codigo" class="advertencia" style="background-color: #ff6666; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; float: right; margin-top: 20px;">Código de Registro</a>
+
+
+
 
 
 
@@ -99,10 +103,6 @@
 
     </table>
 
-    <?php
-    // Incluir el archivo codigo_registro.php
-    include 'codigo-registro.php';
-    ?>
 </div>
 <?php
 $script = "

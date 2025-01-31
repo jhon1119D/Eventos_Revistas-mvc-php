@@ -45,6 +45,9 @@ $router->post('/olvide', [LoginController::class, 'olvideContraseña']);
 $router->get('/eliminarUsuario', [LoginController::class, 'eliminar']);
 // -------------------------Eliminar usuario administrador------------
 
+//pagina de el administrador de usuarios
+$router->get('/paginaAdministrador', [LoginController::class, 'paginaAdministrador']);
+//pagina de el administrador de usuarios
 
 
 //--------------------------------------------------------------------------------------------------------------------

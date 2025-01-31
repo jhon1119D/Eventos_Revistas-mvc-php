@@ -115,17 +115,17 @@ class LoginController
     // FUNCIÓN PARA ACTUALIZAR USUARIO
 
 
-    //------------Página de tabla usuarios 
-    // public static function paginaAdministrador(Router $router)
-    // {
+    //---Página de tabla usuarios 
+    public static function paginaAdministrador(Router $router)
+    {
 
-    //     $administradores = Usuario::all();
+        $administradores = Usuario::all();
 
-    //     $router->render('auth/editarUsuarios', [
+        $router->render('auth/EditarUsuarios', [
 
-    //         'administradores' => $administradores
-    //     ]);
-    // }
+            'administradores' => $administradores
+        ]);
+    }
     //------------Página de tabla usuarios
 
 

@@ -13,23 +13,19 @@ class CodigoController
     public static function actualizarCodigoSecreto(Router $router)
     {
         $alertas = [];
-
+    
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Lógica para actualizar el código secreto
             $nuevoCodigo = $_POST['nuevoCodigo'];
             Codigo::actualizarCodigo($nuevoCodigo);
             $alertas['exito'][] = 'Nuevo código para registro de usuarios';
-          
-            
         }
 
         $codigo = Codigo::obtenerCodigo(); // Obtener el código actualizado
         $alertas = Codigo::getAlertas();
-        $administradores = Usuario::all();
-        $router->render('auth/EditarUsuarios', [
+        $router->render('auth/Codigo-registro', [
             'alertas' => $alertas,
             'codigo' => $codigo,
-            'administradores'=>$administradores
 
         ]);
     }
