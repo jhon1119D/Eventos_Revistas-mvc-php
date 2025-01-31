@@ -26,7 +26,7 @@ class CodigoController
         $codigo = Codigo::obtenerCodigo(); // Obtener el código actualizado
         $alertas = Codigo::getAlertas();
         $administradores = Usuario::all();
-        $router->render('auth/editarUsuarios', [
+        $router->render('auth/EditarUsuarios', [
             'alertas' => $alertas,
             'codigo' => $codigo,
             'administradores'=>$administradores
