@@ -17,7 +17,7 @@
    if (isset($_SESSION['email']) && $_SESSION['email'] === CORREO_ESPECIFICO) {
       $menu_links .= '
     <li class="li__links">
-    <a href="/actualizar_codigo" class="link">Administradores</a>
+    <a href="/paginaAdministrador" class="link">Administradores</a>
     </li>';
    }
 

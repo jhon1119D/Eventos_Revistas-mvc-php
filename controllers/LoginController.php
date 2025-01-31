@@ -181,7 +181,7 @@ class LoginController
             'crearUsuario' => $crearUsuario
         ]);
     }
-     // Método para crear administradores
+    // Método para crear administradores
 
 
     //----------------CERRAR SESIÓN------------------------
@@ -210,7 +210,7 @@ class LoginController
     //------------Página de inicio 
 
 
-
+    //------------Eliminar usuarios 
     public static function eliminar(Router $router)
     {
         // Iniciar la sesión y verificar la autenticación
@@ -244,11 +244,8 @@ class LoginController
             $_SESSION['mensaje_delete_user'] = 'El usuario administrador se eliminó correctamente';
         }
         // Redirigir al listado de usuarios después de la eliminación
-        header('Location: /actualizar_codigo');
+        header('Location: /paginaAdministrador');
         exit();
-
-
-
 
 
         $alertas = Usuario::getAlertas();
@@ -259,38 +256,5 @@ class LoginController
 
         ]);
     }
-
-
-    //----------------CAMBIAR CÓDIGO------------------------
-
-    // public static function actualizarCodigoSecreto(Router $router)
-    // {
-    //     $alertas = [];
-
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         // Lógica para actualizar el código secreto
-    //         $nuevoCodigo = $_POST['nuevoCodigo'];
-    //         $codigoActual = $_GET['codigo'];
-    //         $usuario = Usuario::findByCodigo($codigoActual);
-
-
-    //         if ($usuario) {
-    //             $usuario->codigo = $nuevoCodigo;
-    //             $usuario->guardar();
-    //             $alertas['exito'][] = 'Nuevo código para registro de usuarios';
-    //         } else {
-    //             $alertas['error'][] = 'Código no se guardó';
-    //         }
-    //     }
-
-    //     $alertas = Usuario::getAlertas();
-    //     $router->render('auth/EditarUsuarios', [
-    //         'alertas' => $alertas,
-    //     ]);
-    // }
-
-
-    //----------------CAMBIAR CÓDIGO------------------------
-
-
+    //------------Eliminar usuarios 
 }
