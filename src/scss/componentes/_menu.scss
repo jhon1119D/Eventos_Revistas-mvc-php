@@ -7,7 +7,12 @@
   background-color: v.$indigo;
 
   .ul__links--show {
-    height: 16rem;
+    height: 20rem;
+    z-index: 1;
+  }
+
+  .ul__links--show li:last-child {
+    margin-bottom: 1.5rem; /* Ajusta el valor según el espacio que desees */
   }
   .close__icon {
     display: none;
@@ -50,14 +55,14 @@
   padding: 0;
   gap: 2rem;
 
-  background: linear-gradient(to left, v.$indigo, v.$grisOscuro);
+  background: linear-gradient(to top, v.$indigo, v.$negro);
 
   transition: all 0.8s ease-in;
 
   .li__links {
     list-style: none;
     margin-top: 1.5rem;
-    transition: transform 0.3s ease;
+    transition: transform .3s ease;
     /* Añade una transición suave */
     &:hover {
       transform: scale(1.1);
@@ -68,18 +73,18 @@
       color: v.$naranja;
       background-color: v.$indigo;
       padding: 0.4rem 0.3rem;
-      border-radius: 10%;
+      border-radius: 10px;
     }
     .link--salir {
       color: v.$blanco;
       background-color: v.$rojo;
-      border-radius: 10%;
+      border-radius: 10px;
       padding: 0.4rem 0.3rem;
     }
     .link--entrar {
       color: v.$blanco;
       background-color: v.$verde;
-      border-radius: 10%;
+      border-radius: 10px;
       padding: 0.4rem 0.3rem;
     }
   }
@@ -87,8 +92,5 @@
 .imagenM {
   height: 7.4rem;
   width: 10.4rem;
-
 }
-
-
-
+//menu sencillo para la pagina de inicio

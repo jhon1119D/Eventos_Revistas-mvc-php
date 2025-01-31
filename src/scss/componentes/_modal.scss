@@ -13,6 +13,7 @@
   height: 100%;
   overflow: auto;
   padding-top: 60px;
+
 }
 .modal-content {
   background-color: v.$grisOscuro;
@@ -20,19 +21,28 @@
   padding: 20px;
   width: 80%;
   max-width: 500px;
+  border-radius: 10px;
+  
+  @include m.tablet {
+    margin: 0 auto;
+    max-width: 800px;
+  }
 }
 .actualizar {
   color: v.$naranja;
   margin-top: 5rem;
 
+
   .camp {
     display: flex;
     align-items: center;
     margin-bottom: 2rem;
-    gap: 0.5rem;
+    gap: 1rem;
     font-size: 1.2rem;
+
     label {
       flex: 0 0 11rem;
+
     }
 
     input,
@@ -42,6 +52,7 @@
       border: none;
       margin-right: 1rem;
       background: v.$gris;
+      border-radius: 10px;
     }
   }
   button[type="submit"] {
@@ -61,7 +72,20 @@
   cursor: pointer;
 }
 
-.botones-utiles {
+.botones-utiles{
   display: flex;
   justify-content: space-between;
+}
+
+.delete-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+    color:v.$rojo; // Color rojo para el texto
+  }
 }

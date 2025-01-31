@@ -80,6 +80,35 @@ class ActiveRecord
         return array_shift($resultado);
     }
 
+    //---------------------PARA PODER ELIMINAR EL ID_USUARIOS
+    // Busqueda Where con Columna 
+    public static function w($columna, $valor)
+    {
+        $query = "SELECT * FROM " . static::$tabla . " WHERE {$columna} = '{$valor}'";
+        $resultado = self::consultarSQL($query);
+        $objetos = [];
+        foreach ($resultado as $data) {
+            $objeto = new static();
+            foreach ($data as $key => $value) {
+                $objeto->$key = $value;
+            }
+            $objetos[] = $objeto;
+        }
+        return $objetos;
+    }
+    // Función para actualizar
+    public function a()
+    {
+        $query = "UPDATE " . static::$tabla . " SET usuario_id = ? WHERE id = ?";
+        $stmt = self::$db->prepare($query);
+        $stmt->bind_param("ii", $this->usuario_id, $this->id);
+        $stmt->execute();
+    }
+    //---------------------PARA PODER ELIMINAR EL ID_USUARIOS
+
+
+
+
     // SQL para Consultas Avanzadas.
     public static function SQL($consulta)
     {

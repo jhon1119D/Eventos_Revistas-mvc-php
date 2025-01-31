@@ -32,7 +32,8 @@ class RevistasController
 
                 if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] == UPLOAD_ERR_OK) {
                     $tipoArchivo = pathinfo($_FILES['archivo']['name'], PATHINFO_EXTENSION);
-                    $tiposPermitidos = ['pdf', 'docx', 'xlsx']; // Agrega los tipos permitidos
+                    $tiposPermitidos = ['doc', 'docx', 'xlsx', 'tex', 'zip'];
+
 
                     if (in_array($tipoArchivo, $tiposPermitidos)) {
 
@@ -59,7 +60,7 @@ class RevistasController
 
         $alertas = Revista::getAlertas();
         $router->render('admin/Revistas', [
-            'nombre' => $_SESSION['nombre'],
+            'nombreUsuario' => $_SESSION['nombre'],
             'alertas' => $alertas,
             'revistas' => $revistas,
             'datos' => $datos
@@ -79,9 +80,14 @@ class RevistasController
         $id = $_GET['id'];
         $revista = Revista::find($id);
 
+
+
         if ($revista) {
             Revista::eliminarArchivo($revista->documento_url);
+
+            
         }
+
         $revista->eliminar();
         // $_SESSION['mensaje_exito'] = 'La revista  se elimino correctamente';
 
@@ -217,4 +223,6 @@ class RevistasController
         ]);
     }
     // -----------------------------BUSCAR---------------------FUNCIÓN PARA USUARIOS
+
+    
 }

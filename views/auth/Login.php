@@ -1,4 +1,23 @@
 <div class="contenedor">
+    <!-- -----------------------MENÚ DE NAVEGACIÓN -->
+    <header class="header">
+        <nav class="nav">
+            <!-- imagen logo utpl menú -->
+            <img class="imagenM" src="/build/img/Logo-utpl.svg" alt="Logo utpl">
+
+            <div>
+                <a href="/">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="return" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5" />
+                    </svg>
+                </a>
+            </div>
+
+
+        </nav>
+
+    </header>
+    <!-- -----------------------MENÚ DE NAVEGACIÓN -->
 
     <div class="titulo">
         <p>Administrador de eventos y revistas</p>
@@ -31,27 +50,27 @@
         ?>
         <!--ALERTAS -->
 
-        <form class="formulario" method="POST" action="/">
+        <form class="formulario" method="POST" action="/login">
             <!-- usuario -->
             <div class="campo">
-                <label for="nombre">Administrador:</label>
+                <label for="email">Administrador:</label>
 
                 <input
-                    type="text"
-                    id="nombre"
-                    placeholder="Usuario Administrador"
-                    value="<?php echo s($auth->nombre) ?>"
-                    name="nombre" />
+                    type="email"
+                    id="email"
+                    placeholder="Correo electrónico"
+                    value="<?php echo s($auth->email) ?>"
+                    name="email" />
             </div>
             <!-- contraseña -->
             <div class="campo">
-                <label for="contraseña">Contraseña:</label>
+                <label for="contrasena">Contraseña:</label>
 
                 <input
                     type="password"
-                    id="contraseña"
+                    id="contrasena"
                     placeholder="Contraseña"
-                    name="contraseña" />
+                    name="contrasena" />
             </div>
 
             <input type="submit" class="boton" value="Ingresar">
@@ -59,41 +78,45 @@
         </form>
 
         <div class="acciones">
-            <a href="/buscar_eventos_publico">Visualizar eventos</a>
-            <a href="/buscar_revistas_publico">Visualizar revistas</a>
+
+            <a href="/registrar_usuario">Crear cuenta administrador</a>
+
+            <a href="/olvide">¿Olvidaste tu contraseña?</a>
         </div>
 
 
     </div>
 
 
-    <!-- Modal -->
+    <!-- Modal uno-->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p>actualizar usuario</p>
+
+            <h1>Cambiar contraseña</h1>
+
             <form action="/actualizar" method="POST" class="actualizar">
+                <!-- -------------------------------------------------------------------------------- -->
                 <div class="camp">
-                    <label for="antiguoNombre">Nombre:</label>
-                    <input type="text" id="antiguoNombre" name="antiguoNombre" required>
-                </div>
-                <div class="camp">
-                    <label for="antiguaContraseña">Contraseña:</label>
-                    <input type="password" id="antiguaContraseña" name="antiguaContraseña" required>
+                    <label for="Correo">Correo electrónico:</label>
+                    <input type="text" id="Correo" name="Correo">
                 </div>
                 <!-- -------------------------------------------------------------------------------- -->
                 <div class="camp">
-                    <label for="nuevoNombre">Nuevo Nombre:</label>
-                    <input type="text" id="nuevoNombre" name="nuevoNombre" required>
+                    <label for="antiguaContraseña">Contraseña:</label>
+                    <input type="password" id="antiguaContraseña" name="antiguaContraseña">
                 </div>
+                <!-- -------------------------------------------------------------------------------- -->
                 <div class="camp">
-                    <label for="nuevaContraseña">Nueva Contraseña:</label>
-                    <input type="password" id="nuevaContraseña" name="nuevaContraseña" required>
+                    <label for="nuevaContraseña">Nueva contraseña:</label>
+                    <input type="password" id="nuevaContraseña" name="nuevaContraseña">
                 </div>
+                <!-- -------------------------------------------------------------------------------- -->
                 <button type="submit">Guardar</button>
             </form>
         </div>
     </div>
+    <!-- Modal-uno -->
 
 
 </div>

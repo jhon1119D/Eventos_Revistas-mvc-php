@@ -16,7 +16,11 @@
   }
 
   .formulario {
-    margin-top: 3rem;
+    margin-top: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    background-color:v.$blanco;
+    border-radius: 15px;
 
     .campo {
       display: flex;
@@ -27,6 +31,8 @@
 
       label {
         flex: 0 0 11rem;
+        color: v.$negro;
+        font-weight: bold;
       }
 
       input,
@@ -38,8 +44,9 @@
         background: linear-gradient(
           to left,
           v.$gris 0%,
-          color.scale(v.$gris, $lightness: 40%) 90%
+          color.scale(v.$gris, $lightness: 40%) 100%
         );
+        border-radius: 10px;
       }
     }
     input[type="submit"] {
@@ -64,17 +71,43 @@
         transform: scale(1.3);
         color: v.$naranja;
       }
-      // &:last-of-type {
-      //   margin-bottom: 0;
-      // }
+
     }
   }
 }
 /* Ocultar el input de tipo file */
 input[type="file"] {
-  font-size: .8rem;
+  font-size: 0.8rem;
   @include m.telefono {
     font-size: 1.1rem;
   }
 }
+//ocultar formulario
+.hidden {
+  display: none;
+}
+
+.boton-añadir  {
+  position: relative;
+  margin-top: 6.5rem;
+  padding-left: 20rem; /* Ajusta según sea necesario */
+  @include m.boton(v.$indigo, v.$blanco, 100%);
+  
+}
+
+
+.icono {
+  position: absolute;
+  top: -6px;
+  right: 1.5rem; /* Ajusta según sea necesario */
+  transition: transform 1s ease-out;
+  color:v.$gris;
+  font-size: 5rem;
+  align-items: center;
+}
+
+.boton-añadir.girado .icono {
+  transform: rotate(90deg);
+}
+
 

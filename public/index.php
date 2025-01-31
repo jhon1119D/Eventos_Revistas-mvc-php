@@ -5,20 +5,53 @@ require_once __DIR__ . '/../includes/app.php';
 use Controllers\RevistasController;
 use Controllers\LoginController;
 use Controllers\EventosController;
+use Controllers\CodigoController;
 use MVC\Router;
+
 
 $router = new Router();
 
 // ------------------------------ LOGIN
-$router->get('/', [LoginController::class, 'login']);
-$router->post('/', [LoginController::class, 'login']);
-// ------------------------------------------------------------
+$router->get('/', [LoginController::class, 'paginaPrincipal']);
+$router->get('/login', [LoginController::class, 'login']);
+$router->post('/login', [LoginController::class, 'login']);
+// ------------------------------ LOGIN
+
+//----------------CERRAR SESIÓN-------------------------------------
+$router->get('/logout', [LoginController::class, 'logout']);
+//----------------CERRAR SESIÓN-------------------------------------
+
+
+// -------------------------REGISTRO DE USUARIOS Y ACTUALIZACION DE CODIGO PARA REGISTRO--------
+$router->post('/actualizar_codigo', [CodigoController::class, 'actualizarCodigoSecreto']);
+$router->get('/actualizar_codigo', [CodigoController::class, 'actualizarCodigoSecreto']);
+$router->post('/registrar_usuario', [LoginController::class, 'usuario']);
+$router->get('/registrar_usuario', [LoginController::class, 'usuario']);
+// -------------------------REGISTRO DE USUARIOS Y ACTUALIZACION DE CODIGO PARA REGISTRO--------
+
+
+// -------------------------Cambiar contraseña administradores--------
 $router->get('/actualizar', [LoginController::class, 'actualizarLogin']);
 $router->post('/actualizar', [LoginController::class, 'actualizarLogin']);
-//CERRAR SESIÓN
-$router->get('/logout', [LoginController::class, 'logout']);
-//CERRAR SESIÓN
-// ------------------------------ LOGIN
+// -------------------------Cambiar contraseña administradores--------
+
+// -------------------------Cambiar contraseña administradores--------
+$router->get('/olvide', [LoginController::class, 'olvideContraseña']);
+$router->post('/olvide', [LoginController::class, 'olvideContraseña']);
+// -------------------------Cambiar contraseña administradores--------
+
+
+// -------------------------Eliminar usuario administrador------------
+$router->get('/eliminarUsuario', [LoginController::class, 'eliminar']);
+// -------------------------Eliminar usuario administrador------------
+
+
+
+//--------------------------------------------------------------------------------------------------------------------
+//PARTE DE EVENTOS Y REVISTAS ****************************************************************************************
+//--------------------------------------------------------------------------------------------------------------------
+
+
 
 // ------------------------------ EVENTOS
 $router->get('/Eventos', [EventosController::class, 'Eventos']);
@@ -64,6 +97,12 @@ $router->post('/buscar_eventos_admin', [EventosController::class, 'buscarAdmin']
 $router->get('/buscar_eventos_publico', [EventosController::class, 'buscarPublico']);
 $router->post('/buscar_eventos_publico', [eventosController::class, 'buscarPublico']);
 // BUSCAR EVENTOS EN EL ADMINISTRADOR Y PUBLICO
+
+
+
+
+
+
 
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador

@@ -14,9 +14,6 @@ html {
 body.dark-mode {
   background: v.$negro;
   color: v.$blanco;
-  .toggle {
-    filter: invert(1) hue-rotate(180deg) brightness(0.8) contrast(1.2);
-  }
 }
 
 body {
@@ -51,5 +48,16 @@ img {
   margin-top: 1rem;
   text-shadow: 2px 2px 5px grey;
 }
+.return {
+  color:v.$naranja;
+  transition: transform 1.3s ease-out;
+}
+
+.return:active {
+  transform: translateX(-2.7rem); /* Ajusta el valor según tus necesidades */
+
+}
+
+
 
 

@@ -2,16 +2,31 @@
 
 
    <?php
+   session_start();
+   define('CORREO_ESPECIFICO', 'lenciso@utpl.edu.ec');
+
    $menu_links = ' 
-      <li class="li__links">
-      <a href="/Revistas" class="link">Revistas</a>
-      </li> 
-      <li class="li__links">
-      <a href="/Eventos" class="link">Eventos</a>
-      </li> <li class="li__links">
-      <a href="/logout" class="link--salir">Salir</a>
-      </li> 
-      ';
+    <li class="li__links">
+    <a href="/Revistas" class="link">Revistas</a>
+    </li> 
+    <li class="li__links">
+    <a href="/Eventos" class="link">Eventos</a>
+    </li>';
+
+   // Verificar si el correo del usuario coincide con el correo específico
+   if (isset($_SESSION['email']) && $_SESSION['email'] === CORREO_ESPECIFICO) {
+      $menu_links .= '
+    <li class="li__links">
+    <a href="/actualizar_codigo" class="link">Administradores</a>
+    </li>';
+   }
+
+   // Añadir el enlace "Salir" al final
+   $menu_links .= '
+    <li class="li__links">
+    <a href="/logout" class="link--salir">Salir</a>
+    </li>';
+
    include_once __DIR__ . "../../plantillas/Menu.php";
    ?>
    <h1>Actualizar revista</h1>
@@ -93,11 +108,11 @@
          </div>
 
          <div class="campo">
-            <label for="accesibilidad">Acceso:</label>
+            <label for="accesibilidad">Open access:</label>
             <select id="accesibilidad" name="accesibilidad">
                <option value="" disabled <?php echo empty($revistas->accesibilidad) ? 'selected' : ''; ?>>--Elegir--</option>
-               <option value="<?php echo s('Público'); ?>" <?php echo $revistas->accesibilidad == 'Público' ? 'selected' : ''; ?>>Público</option>
-               <option value="<?php echo s('Privado'); ?>" <?php echo $revistas->accesibilidad == 'Privado' ? 'selected' : ''; ?>>Privado</option>
+               <option value="<?php echo s('si'); ?>" <?php echo $revistas->accesibilidad == 'si' ? 'selected' : ''; ?>>Si</option>
+               <option value="<?php echo s('no'); ?>" <?php echo $revistas->accesibilidad == 'no' ? 'selected' : ''; ?>>No</option>
             </select>
          </div>
 

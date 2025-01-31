@@ -56,11 +56,10 @@
         </div>
 
         <div class="campos">
-            <label for="accesibilidad">Acceso:</label>
+            <label for="accesibilidad">Open access:</label>
             <select id="accesibilidad" name="accesibilidad">
                 <option value="" disabled <?php echo empty($revistas->accesibilidad) ? 'selected' : ''; ?>>--Elegir--</option>
-                <option value="<?php echo s('Público'); ?>" <?php echo $revistas->accesibilidad == 'Público' ? 'selected' : ''; ?>>Público</option>
-                <option value="<?php echo s('Privado'); ?>" <?php echo $revistas->accesibilidad == 'Privado' ? 'selected' : ''; ?>>Privado</option>
+                <option value="<?php echo s('si'); ?>" <?php echo $revistas->accesibilidad == 'si' ? 'selected' : ''; ?>>Revistas open access</option>
             </select>
         </div>
 

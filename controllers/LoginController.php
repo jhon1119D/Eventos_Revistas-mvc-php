@@ -3,7 +3,12 @@
 namespace Controllers;
 
 use Model\Usuario;
+use Model\Revista;
+use Model\Evento;
+use Model\Codigo;
 use MVC\Router;
+
+
 
 class LoginController
 {
@@ -21,25 +26,24 @@ class LoginController
 
             if (empty($alertas)) { //SI ALERTAS ESTA VACIO
 
-                //comprobar que exista usuario
-                $usuario = Usuario::where('nombre', $auth->nombre);
+                //comprobar que exista el correo del usuario
+                $usuario = Usuario::where('email', $auth->email);
 
                 if ($usuario) {
                     //Si es false devuelve la alerta USUARIO NO EXISTE
                     //verificar el password
-                    if ($usuario->comprobarContraseña($auth->contraseña)) {
+                    if ($usuario->comprobarContraseña($auth->contrasena)) {
 
                         //autenticar usuario
                         session_start();
                         $_SESSION['id'] = $usuario->id;
-                        $_SESSION['nombre'] = $usuario->nombre;
+                        $_SESSION['nombre'] = $usuario->nombre . " " . $usuario->apellido;
                         $_SESSION['email'] = $usuario->email;
                         $_SESSION['login'] = true;
 
-                        //redireccionamiento admin
-                        if (in_array($usuario->id, ["1", "2", "3", "4"])) {
+                        //redireccionamiento dependiendo si es cliente o admin
+                        if ($usuario->admin === '1') {
                             header('Location: /Revistas');
-                            exit();
                         }
                     }
                 } else {
@@ -56,16 +60,15 @@ class LoginController
     }
     //FIN CONTROLADOR PARA INGRESAR AL SISTEMA "LOGIN"
 
-    // FUNCIÓN PARA ACTUALIZAR USUARIO
+    // FUNCIÓN PARA CAMBIAR LA CONTRASEÑA DE LOS USUARIOS
     public static function actualizarLogin(Router $router)
     {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $antiguoNombre = $_POST['antiguoNombre'];
+            $Correo = $_POST['Correo'];
             $antiguaContraseña = $_POST['antiguaContraseña'];
-            $nuevoNombre = $_POST['nuevoNombre'];
             $nuevaContraseña = $_POST['nuevaContraseña'];
-            Usuario::actualizarUsuario($antiguoNombre, $antiguaContraseña, $nuevoNombre, $nuevaContraseña);
+            Usuario::actualizarUsuario($Correo, $antiguaContraseña, $nuevaContraseña);
 
 
             $alertas = Usuario::getAlertas();
@@ -79,7 +82,106 @@ class LoginController
             ]);
         }
     }
+    // FUNCIÓN PARA CAMBIAR LA CONTRASEÑA DE LOS USUARIOS
+
+
+
+    // FUNCIÓN PARA RECUPERAR CONTRASEÑA
+    public static function olvideContraseña(Router $router)
+    {
+        $nombreUsuario = '';
+        $emailUsuario = '';
+        $telefonoUsuario = '';
+        $nuevaContraseña = '';
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $nombreUsuario = $_POST['nombreUsuario'];
+            $emailUsuario = $_POST['emailUsuario'];
+            $telefonoUsuario = $_POST['telefonoUsuario']; // Código ingresado por el usuario
+            $nuevaContraseña = $_POST['nuevaContraseña'];
+
+            Usuario::olvide($nombreUsuario, $emailUsuario, $telefonoUsuario, $nuevaContraseña);
+        }
+
+        $alertas = Usuario::getAlertas();
+        $router->render('auth/Olvide', [
+            'alertas' => $alertas,
+            'nombreUsuario' => $nombreUsuario,
+            'emailUsuario' => $emailUsuario,
+            'telefonoUsuario' => $telefonoUsuario,
+            'nuevaContraseña' => $nuevaContraseña
+        ]);
+    }
     // FUNCIÓN PARA ACTUALIZAR USUARIO
+
+
+    //------------Página de tabla usuarios 
+    // public static function paginaAdministrador(Router $router)
+    // {
+
+    //     $administradores = Usuario::all();
+
+    //     $router->render('auth/editarUsuarios', [
+
+    //         'administradores' => $administradores
+    //     ]);
+    // }
+    //------------Página de tabla usuarios
+
+
+    // Método para crear administradores
+    public static function usuario(Router $router)
+    {
+        $crearUsuario = new Usuario; // Crear la instancia de Usuario fuera del if
+        // Alertas vacías
+        $alertas = [];
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $crearUsuario->sincronizar($_POST);
+
+            // Validar todos los campos del formulario
+            $alertas = $crearUsuario->validarRegistro();
+            $codigo = $_POST['codigo'];
+
+
+            if (empty($alertas) && Codigo::compararCodigo($codigo)) { // Si alertas está vacío
+
+
+                $resultado = $crearUsuario->existeUsuario();
+
+
+                if ($resultado->num_rows) {
+                    $alertas = Usuario::getAlertas();
+                } else {
+                    // Hashear contraseña
+                    $crearUsuario->hashPassword();
+
+                    // Establecer el valor de admin a true para el nuevo usuario
+                    $crearUsuario->admin = true;
+
+                    // Guardar el usuario en la base de datos
+                    $resultado = $crearUsuario->guardar();
+
+                    if ($resultado) {
+                        // Añadir mensaje de éxito a las alertas
+                        $alertas['exito'][] = 'Registro guardado exitosamente';
+                        // Crear una nueva instancia para restablecer el formulario
+                        $crearUsuario = new Usuario;
+                    } else {
+                        $alertas['error'][] = 'Error al guardar el registro';
+                    }
+                }
+            } else {
+                $alertas['error'][] = 'Ingrese el código correcto si no lo tiene solicitelo!';
+            }
+        }
+
+        $router->render('auth/Usuarios', [
+            'alertas' => $alertas,
+            'crearUsuario' => $crearUsuario
+        ]);
+    }
+     // Método para crear administradores
 
 
     //----------------CERRAR SESIÓN------------------------
@@ -97,4 +199,98 @@ class LoginController
         }
     }
     //----------------CERRAR SESIÓN------------------------
+
+
+    //------------Página de inicio 
+    public static function paginaPrincipal(Router $router)
+    {
+
+        $router->render('auth/Principal', []);
+    }
+    //------------Página de inicio 
+
+
+
+    public static function eliminar(Router $router)
+    {
+        // Iniciar la sesión y verificar la autenticación
+        session_start();
+        RevisarSesion();
+
+
+        // Alertas vacías
+        $alertas = [];
+
+
+        $id = $_GET['id'];
+        $registro = Usuario::find($id);
+
+        if ($registro) {
+            // Actualizar los registros relacionados en la tabla `revistas`
+            $revistas = Revista::w('usuario_id', $id);
+            foreach ($revistas as $revista) {
+                $revista->usuario_id = NULL;
+                $revista->a();
+            }
+
+            // Actualizar los registros relacionados en la tabla `eventos`
+            $eventos = Evento::w('usuario_id', $id);
+            foreach ($eventos as $evento) {
+                $evento->usuario_id = NULL;
+                $evento->a();
+            }
+            // Eliminar el usuario
+            $registro->eliminar();
+            $_SESSION['mensaje_delete_user'] = 'El usuario administrador se eliminó correctamente';
+        }
+        // Redirigir al listado de usuarios después de la eliminación
+        header('Location: /actualizar_codigo');
+        exit();
+
+
+
+
+
+        $alertas = Usuario::getAlertas();
+
+        $router->render('auth/EditarUsuarios', [
+            'alertas' => $alertas,
+            'registro' => $registro
+
+        ]);
+    }
+
+
+    //----------------CAMBIAR CÓDIGO------------------------
+
+    // public static function actualizarCodigoSecreto(Router $router)
+    // {
+    //     $alertas = [];
+
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //         // Lógica para actualizar el código secreto
+    //         $nuevoCodigo = $_POST['nuevoCodigo'];
+    //         $codigoActual = $_GET['codigo'];
+    //         $usuario = Usuario::findByCodigo($codigoActual);
+
+
+    //         if ($usuario) {
+    //             $usuario->codigo = $nuevoCodigo;
+    //             $usuario->guardar();
+    //             $alertas['exito'][] = 'Nuevo código para registro de usuarios';
+    //         } else {
+    //             $alertas['error'][] = 'Código no se guardó';
+    //         }
+    //     }
+
+    //     $alertas = Usuario::getAlertas();
+    //     $router->render('auth/EditarUsuarios', [
+    //         'alertas' => $alertas,
+    //     ]);
+    // }
+
+
+    //----------------CAMBIAR CÓDIGO------------------------
+
+
 }

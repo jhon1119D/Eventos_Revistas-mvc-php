@@ -2,18 +2,34 @@
 
 
     <?php
+    session_start();
+    define('CORREO_ESPECIFICO', 'lenciso@utpl.edu.ec');
+
     $menu_links = ' 
-       <li class="li__links">
-       <a href="/Revistas" class="link">Revistas</a>
-       </li> 
-       <li class="li__links">
-       <a href="/Eventos" class="link">Eventos</a>
-       </li> <li class="li__links">
-       <a href="/logout" class="link--salir">Salir</a>
-       </li> 
-       ';
+    <li class="li__links">
+    <a href="/Revistas" class="link">Revistas</a>
+    </li> 
+    <li class="li__links">
+    <a href="/Eventos" class="link">Eventos</a>
+    </li>';
+
+    // Verificar si el correo del usuario coincide con el correo específico
+    if (isset($_SESSION['email']) && $_SESSION['email'] === CORREO_ESPECIFICO) {
+        $menu_links .= '
+    <li class="li__links">
+    <a href=""/actualizar_codigo" class="link">Administradores</a>
+    </li>';
+    }
+
+    // Añadir el enlace "Salir" al final
+    $menu_links .= '
+    <li class="li__links">
+    <a href="/logout" class="link--salir">Salir</a>
+    </li>';
+
     include_once __DIR__ . "../../plantillas/Menu.php";
     ?>
+    
     <h1>Actualizar evento</h1>
     <div class="contenedor-sm">
 
@@ -81,13 +97,41 @@
             </div>
 
             <div class="campo">
+                <label for="fechaAcep">Fecha aceptación:</label>
+
+                <?php if ($eventos->fechaAcep == '1111-11-11'): ?>
+
+                    <input
+                        type="date"
+                        id="fechaAcep"
+                        name="fechaAcep"
+                        value="" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="descargar-zip" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                    </svg>
+
+                <?php else: ?>
+                    <input
+                        type="date"
+                        id="fechaAcep"
+                        name="fechaAcep"
+                        value="<?php echo s($eventos->fechaAcep); ?>" />
+                <?php endif; ?>
+
+            </div>
+
+            <div class="campo">
                 <label for="archivo">Subir plantilla:</label>
                 <input type="file" id="archivo" name="archivo" accept=".pdf, .doc, .docx">
             </div>
-
-
-
             <input type="submit" class="boton" value="Actualizar evento">
 
-        </form>
     </div>
+
+
+
+
+
+    </form>
+</div>

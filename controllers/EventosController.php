@@ -29,16 +29,18 @@ class EventosController
         //crear los usuarios en la base de datos
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_POST['usuario_id'] = $_SESSION['id'];
+            
 
 
             $eventos = new Evento($_POST);
             $alertas = $eventos->validarEventos();
+           
 
             if (empty($alertas)) {
 
                 if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] == UPLOAD_ERR_OK) {
                     $tipoArchivo = pathinfo($_FILES['archivo']['name'], PATHINFO_EXTENSION);
-                    $tiposPermitidos = ['pdf', 'docx', 'xlsx']; // Agrega los tipos permitidos
+                    $tiposPermitidos = ['doc', 'docx', 'xlsx', 'tex', 'zip']; // Agrega los tipos permitidos
 
                     if (in_array($tipoArchivo, $tiposPermitidos)) {
                         $documento = Evento::guardarArchivo($_FILES['archivo']);
@@ -66,7 +68,7 @@ class EventosController
 
         $alertas = Evento::getAlertas();
         $router->render('admin/Eventos', [
-            'nombre' => $_SESSION['nombre'],
+            'nombreUsuario' => $_SESSION['nombre'],
             'alertas' => $alertas,
             'eventos' => $eventos,
             'datos' => $datos

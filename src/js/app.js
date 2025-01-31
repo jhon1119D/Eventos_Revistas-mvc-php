@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", function () {
   darkMode();
   confirmarDelete();
   modal();
+  onGetFile();
+  formularios();
+
 });
 
 //MENÚ HAMBURGUESA
@@ -73,9 +76,14 @@ function confirmarDelete() {
   document.querySelectorAll(".eliminar-E").forEach(function (enlace) {
     enlace.addEventListener("click", function (e) {
       e.preventDefault();
+      const nombre = this.getAttribute("data-nombre");
+      console.log("Nombre del registro a eliminar:", nombre); // Verificar el valor de nombre
       Swal.fire({
         title: "¿Estás seguro?",
-        text: "¡No hay vuelta atrás!",
+        html:
+          "Se eliminará el siguiente registro:<br><ul class='delete-list'><li>" +
+          nombre +
+          "</li></ul>",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#d33", // Color rojo para el botón de confirmar
@@ -88,7 +96,10 @@ function confirmarDelete() {
           //mostrar mensaje de éxito
           Swal.fire({
             title: "Eliminado",
-            text: "Se eliminó con éxito",
+            html:
+              "Se eliminó el siguiente registro:<br><ul class='delete-list'><li>" +
+              nombre +
+              "</li></ul>",
             icon: "success",
             allowOutsideClick: false,
           }).then(() => {
@@ -99,20 +110,94 @@ function confirmarDelete() {
     });
   });
 }
+
 //Ventana modal para cambiar datos de usuario
 function modal() {
   var modal = document.getElementById("myModal");
-  // Obtener el botón que abre el modal
   var btn = document.getElementById("openModalBtn");
-  // Obtener el elemento <span> que cierra el modal
   var span = document.getElementsByClassName("close")[0];
-  // Cuando el usuario hace clic en el botón, abre el modal
-  btn.onclick = function () {
-    modal.style.display = "block";
-  };
-  // Cuando el usuario hace clic en <span> (x), cierra el modal
-  span.onclick = function () {
-    modal.style.display = "none";
-  };
 
+  if (modal && btn && span) {
+    btn.onclick = function () {
+      modal.style.display = "block";
+    };
+    span.onclick = function () {
+      modal.style.display = "none";
+    };
+  } else {
+    console.error("Uno o más elementos no se encontraron en el DOM.");
+  }
 }
+
+async function onGetFile(url) {
+  if (url) {
+    // Vaciar el contenedor del modal antes de cargar un nuevo documento
+    document.getElementById("modal-contenedor").innerHTML = "";
+
+    try {
+      // Convertir URL relativa en absoluta
+      const absoluteUrl = new URL(url, window.location.origin).href;
+      console.log("Absolute URL:", absoluteUrl); // Verificar la URL absoluta
+
+      const response = await fetch(absoluteUrl);
+      const blob = await response.blob();
+
+      // Usar la API URL para obtener la extensión del archivo
+      const urlObject = new URL(absoluteUrl);
+      const extension = urlObject.pathname.split(".").pop().toLowerCase();
+
+      if (extension === "docx") {
+        const options = {
+          inWrapper: false,
+          ignoreWidth: true,
+          ignoreHeight: true,
+        };
+        docx
+          .renderAsync(
+            blob,
+            document.getElementById("modal-contenedor"),
+            null,
+            options
+          )
+          .then(() => {
+            console.log("docx: terminado");
+            document.getElementById("myModal").style.display = "block";
+            const docContent = document.querySelector(
+              "#modal-contenedor .docx"
+            );
+            if (docContent) {
+              docContent.style.padding = "0";
+            }
+          })
+          .catch((error) => {
+            console.error("Error al renderizar el archivo DOCX:", error);
+          });
+      } else if (extension === "txt" || extension === "tex") {
+        const text = await blob.text();
+        const pre = document.createElement("pre");
+        pre.textContent = text;
+        document.getElementById("modal-contenedor").appendChild(pre);
+        document.getElementById("myModal").style.display = "block";
+      } else {
+        console.log("Tipo de archivo no soportado");
+      }
+    } catch (error) {
+      console.error("Invalid URL:", url);
+    }
+  }
+}
+
+function formularios() {
+  document
+    .getElementById("mostrarFormulario")
+    .addEventListener("click", function () {
+      document.getElementById("formularioRevistas").classList.toggle("hidden");
+      this.classList.toggle("girado");
+    });
+}
+
+
+
+
+
+
