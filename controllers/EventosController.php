@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Model\Evento;
+use Model\Usuario;
 use MVC\Router;
 
 class EventosController
@@ -29,18 +30,18 @@ class EventosController
         //crear los usuarios en la base de datos
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_POST['usuario_id'] = $_SESSION['id'];
-            
+
 
 
             $eventos = new Evento($_POST);
             $alertas = $eventos->validarEventos();
-           
+
 
             if (empty($alertas)) {
 
                 if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] == UPLOAD_ERR_OK) {
                     $tipoArchivo = pathinfo($_FILES['archivo']['name'], PATHINFO_EXTENSION);
-                    $tiposPermitidos = ['doc', 'docx', 'xlsx', 'tex', 'zip']; // Agrega los tipos permitidos
+                    $tiposPermitidos = ['doc', 'docx', 'tex', 'zip', 'cls', 'bib', 'txt']; // Agrega los tipos permitidos
 
                     if (in_array($tipoArchivo, $tiposPermitidos)) {
                         $documento = Evento::guardarArchivo($_FILES['archivo']);
@@ -101,10 +102,9 @@ class EventosController
     // -----------------------------ELIMINAR---------------------
 
 
-    // -----------------------------EDITAR---------------------
+    // -----------------------------EDITAR---------------------**
     public static function editar(Router $router)
     {
-
         // Iniciar la sesión y verificar la autenticación
         session_start();
         RevisarSesion();
@@ -113,16 +113,24 @@ class EventosController
         $id = $_GET['id'];
         $eventos = Evento::find($id);
 
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
             $eventos->sincronizar($_POST);
+
+            // Obtener el id del usuario basado en su correo electrónico
+            $correo_especifico = 'lenciso@utpl.edu.ec'; // reemplaza con el correo deseado
+            $usuario = Usuario::where('email', $correo_especifico);
+            if ($usuario) {
+                $eventos->usuario_id = $usuario->id;
+            } else {
+                // Manejar el caso donde no se encuentra el usuario
+                $eventos->usuario_id = NULL; // o cualquier otro manejo que desees
+            }
+
             $alertas = $eventos->validarEventos();
 
             if (empty($alertas)) {
                 // Eliminar el archivo existente si se sube un nuevo archivo
                 if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] == UPLOAD_ERR_OK) {
-
                     $nombre_archivo_subido = basename($_FILES['archivo']['name']);
 
                     if ($eventos->documento_url != $nombre_archivo_subido) {
@@ -138,9 +146,9 @@ class EventosController
                         evento::setAlerta('error', 'Error al subir el documento');
                     }
                 }
-                if (empty($alertas)) { //SI ALERTAS ESTA VACIO
+                if (empty($alertas)) { // SI ALERTAS ESTA VACIO
                     $eventos->guardar();
-                    $_SESSION['mensaje_exito'] = 'La revista  se actualizo correctamente';
+                    $_SESSION['mensaje_exito'] = 'El evento se actualizó correctamente';
                     header('Location: /Eventos');
                     exit;
                 }
@@ -154,13 +162,88 @@ class EventosController
     }
     // -----------------------------EDITAR---------------------
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // -----------------------------BUSCAR---------------------FUNCIÓN PRIVADA DEL CONTROLADOR
     public static function buscar()
     {
+        $datos = Evento::all();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['reset'])) {
                 $datos = Evento::all();
-                Evento::setAlerta('buscar', 'Se mostraron todos los eventos.');
+                Evento::setAlerta('buscar', 'Lista completa de eventos.');
                 //ordenar las fechas 
                 foreach ($datos as $fechas) {
                     $fechas->convertirFecha();

@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
   modal();
   onGetFile();
   formularios();
-
 });
 
 //MENÚ HAMBURGUESA
@@ -195,9 +194,3 @@ function formularios() {
       this.classList.toggle("girado");
     });
 }
-
-
-
-
-
-

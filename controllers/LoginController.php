@@ -229,14 +229,14 @@ class LoginController
             // Actualizar los registros relacionados en la tabla `revistas`
             $revistas = Revista::w('usuario_id', $id);
             foreach ($revistas as $revista) {
-                $revista->usuario_id = NULL;
+                $revista->usuario_id = null;
                 $revista->a();
             }
 
-            // Actualizar los registros relacionados en la tabla `eventos`
+            // // Actualizar los registros relacionados en la tabla `eventos`
             $eventos = Evento::w('usuario_id', $id);
             foreach ($eventos as $evento) {
-                $evento->usuario_id = NULL;
+                $evento->usuario_id = null;
                 $evento->a();
             }
             // Eliminar el usuario
@@ -257,4 +257,12 @@ class LoginController
         ]);
     }
     //------------Eliminar usuarios 
+
+
+
+
+
+
+
+
 }

@@ -38,7 +38,7 @@
         </div>
 
         <div class="campos">
-            <label for="fecha">Fecha:</label>
+            <label for="fecha">Fecha subida:</label>
             <input
                 type="date"
                 id="fecha"
@@ -48,7 +48,7 @@
         <!-- ------------------------------------- -->
 
 
-        <button type="submit" name="reset" class="boton">Mostrar Todos</button>
+        <button type="submit" name="reset" class="boton">Mostrar todos</button>
         <input type="submit" class="boton" value="buscar">
 
     </form>

@@ -10,7 +10,7 @@ class Revista extends ActiveRecord
     // base de datos
 
     protected static $tabla = 'revistas';
-    protected static $columnasDB = ['id', 'nombre', 'categoria', 'enlace', 'accesibilidad', 'pais', 'tipo_revista',  'documento_url'];
+    protected static $columnasDB = ['id', 'nombre', 'categoria', 'enlace', 'accesibilidad', 'pais', 'tipo_revista', 'usuario_id',  'documento_url'];
 
     public $id;
     public $nombre;
@@ -19,7 +19,7 @@ class Revista extends ActiveRecord
     public $accesibilidad;
     public $pais;
     public $tipo_revista;
-    // public $usuario_id;
+    public $usuario_id;
     public $documento_url;
 
 
@@ -32,7 +32,7 @@ class Revista extends ActiveRecord
         $this->accesibilidad = $args['accesibilidad'] ?? '';
         $this->pais = $args['pais'] ?? '';
         $this->tipo_revista = $args['tipo_revista'] ?? '';
-        // $this->usuario_id = $args['usuario_id'] ?? null;
+        $this->usuario_id = $args['usuario_id'] ?? null;
         $this->documento_url = $args['documento_url'] ?? '';
     }
 
@@ -133,4 +133,16 @@ class Revista extends ActiveRecord
         }
     }
     // ----------- FIN LOGICA DE MANEJAR LA SUBIDA DE ARCHIVOS-------------
+
+
+
+
+
+
+
+
+
+
+
+
 }

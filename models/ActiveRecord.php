@@ -104,6 +104,7 @@ class ActiveRecord
         $stmt->bind_param("ii", $this->usuario_id, $this->id);
         $stmt->execute();
     }
+
     //---------------------PARA PODER ELIMINAR EL ID_USUARIOS
 
 

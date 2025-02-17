@@ -10,17 +10,18 @@ class Evento extends ActiveRecord
     // base de datos
 
     protected static $tabla = 'eventos';
-    protected static $columnasDB = ['id', 'titulo', 'acronimo', 'ranking', 'enlace',  'fecha', 'documento_url', 'fechaAcep'];
+    protected static $columnasDB = ['id', 'titulo', 'acronimo', 'ranking', 'enlace', 'usuario_id',  'fecha', 'documento_url', 'fechaAcep', 'fecha_registro'];
 
     public $id;
     public $titulo;
     public $acronimo;
     public $ranking;
     public $enlace;
-    // public $usuario_id;
+    public $usuario_id;
     public $fecha;
     public $documento_url;
     public $fechaAcep;
+    public $fecha_registro;
 
 
     public  function __construct($args = [])
@@ -30,10 +31,11 @@ class Evento extends ActiveRecord
         $this->acronimo = $args['acronimo'] ?? '';
         $this->ranking = $args['ranking'] ?? '';
         $this->enlace = $args['enlace'] ?? '';
-        // $this->usuario_id = $args['usuario_id'] ?? null;
+        $this->usuario_id = $args['usuario_id'] ?? null;
         $this->fecha = $args['fecha'] ?? null;
         $this->documento_url = $args['documento_url'] ?? '';
         $this->fechaAcep = $args['fechaAcep'] ?? null;
+        $this->fecha_registro = $args['fecha_registro'] ?? null;
     }
 
 
@@ -68,12 +70,10 @@ class Evento extends ActiveRecord
                 }
             }
         }
-        // Validar la fecha de aceptación
         // Establecer una fecha predeterminada si fechaAcep está vacío
-        // Establecer una fecha predeterminada si fechaAcep está vacío
+        // Validar fecha de aceptación
         if (!$this->fechaAcep) {
-            $this->fechaAcep = '1111-11-11'; // Establecer en NULL si no se proporciona
-           
+            $this->fechaAcep = '1111-11-11'; // Establecer en '1111-11-11' si no se proporciona
         } else {
             // Validar la fecha de aceptación
             $fechaPartesAceptacion = explode('-', $this->fechaAcep);
@@ -88,20 +88,22 @@ class Evento extends ActiveRecord
             }
         }
 
-        // Continuar con el flujo de registro del evento
-        // Aquí puedes agregar el código para guardar el registro del evento
+        // Validar fecha de registro
+        if (!$this->fecha_registro) {
+            $this->fecha_registro = '1111-11-11'; // Establecer en '1111-11-11' si no se proporciona
+        } else {
+            // Validar la fecha de registro
+            $fechaPartesRegistro = explode('-', $this->fecha_registro);
+            if (count($fechaPartesRegistro) === 3) {
+                $anioRegistro = (int)$fechaPartesRegistro[0];
+                $mesRegistro = (int)$fechaPartesRegistro[1];
+                $diaRegistro = (int)$fechaPartesRegistro[2];
 
-
-
-        // Continuar con el flujo de registro del evento
-        // Aquí puedes agregar el código para guardar el registro del evento
-
-
-
-
-
-
-
+                if (strlen($anioRegistro) !== 4 || $anioRegistro < 1110 || $anioRegistro > 2500) {
+                    self::$alertas['error'][] = 'Por favor, ingrese un año válido para la fecha de registro.';
+                }
+            }
+        }
 
         return self::$alertas;
     }
@@ -143,6 +145,7 @@ class Evento extends ActiveRecord
     {
         $this->fecha = date('d-m-Y', strtotime($this->fecha));
         $this->fechaAcep = date('d-m-Y', strtotime($this->fechaAcep));
+        $this->fecha_registro = date('d-m-Y', strtotime($this->fecha_registro));
     }
 
     // -----------INVERTIR EL ORDEN DE LA FECHA-------------

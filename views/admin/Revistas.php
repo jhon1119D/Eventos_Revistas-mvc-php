@@ -36,13 +36,15 @@
 
 
    <h1>Administrador de revistas</h1>
+
+   <!-- Mensaje de aprendizaje del proyecto -->
    <div class="advertencia">
-      <p>En esta página, puedes gestionar todas las revistas registradas en el sistema. Utiliza el botón en la parte inferior para registrar una nueva revista. En la parte de abajo, encontrarás una lista de todas las revistas registradas, donde puedes previsualizarlas, buscarlas, eliminarlas o editarlas según sea necesario. Esta funcionalidad te permite mantener la información actualizada y gestionar las revistas de manera eficiente.</p>
+      <p>En esta página, puedes gestionar todas las revistas registradas. Utiliza el botón en la parte inferior para registrar una nueva revista. En la parte de abajo encontrarás una lista de todas las revistas registradas, donde puedes previsualizarlas, buscarlas, eliminarlas o editarlas según sea necesario.</p>
    </div>
 
 
 
-
+   <!-- Boton para deslizar el formulario de registro -->
    <button id="mostrarFormulario" class="boton-añadir">
       Registrar una revista <span class="icono">+</span>
    </button>
@@ -53,11 +55,7 @@
 
    <div class="contenedor-sm hidden visible" id="formularioRevistas">
 
-
-
-
-
-
+      <!-- -----------------------------INICIO FORMULARIO -->
       <form class="formulario" method="POST" action="/Revistas" enctype="multipart/form-data" id="formRegistro">
          <p class="descripcion-pagina">Formulario registro de revistas</p>
 
@@ -102,6 +100,7 @@
          </div>
          <!-- ------------------------------------- -->
 
+         <!-- ------------------------------------- -->
          <div class="campo">
             <label for="pais">País:</label>
             <select id="pais" name="pais">
@@ -115,6 +114,9 @@
                <?php endforeach; ?>
             </select>
          </div>
+         <!-- ------------------------------------- -->
+
+         <!-- ------------------------------------- -->
 
 
          <div class="campo">
@@ -127,6 +129,9 @@
                <option value="<?php echo s('Redes de datos'); ?>" <?php echo $revistas->tipo_revista == 'redes de datos' ? 'selected' : ''; ?>>Redes de datos</option>
             </select>
          </div>
+         <!-- ------------------------------------- -->
+
+         <!-- ------------------------------------- -->
 
          <div class="campo">
             <label for="accesibilidad">Open access:</label>
@@ -136,26 +141,30 @@
                <option value="<?php echo s('no'); ?>" <?php echo $revistas->accesibilidad == 'no' ? 'selected' : ''; ?>>No</option>
             </select>
          </div>
+         <!-- ------------------------------------- -->
+
+         <!-- ------------------------------------- -->
 
          <div class="campo">
             <label for="archivo">Subir plantilla:</label>
-            <!-- <input type="file" id="archivo" name="archivo" accept=".pdf, .doc, .docx"> -->
-            <input type="file" id="archivo" name="archivo" accept=".pdf, .doc, .docx, .tex, .zip">
+            <input type="file" id="archivo" name="archivo" accept=".doc, .docx, .tex, .zip, .cls, .bib, .txt">
 
          </div>
+         <!-- -------------------------------------->
 
          <input type="submit" class="boton" value="Añadir revista">
 
       </form>
+      <!-- -------------------------------------FIN FORMULARIO-->
 
 
    </div>
 
-
+   <!-- -----------------------INICIO DE EN DONDE SE MUESTRA LA TABLA CON LOS DATOS -->
    <table class="borde">
       <h1 id="fucus1">Lista de Revistas</h1>
 
-      <!-- -------/buscar_revista----------------FILTRADOR DE DATOS -->
+      <!-- -----------------------FILTRADOR DE DATOS -->
       <?php
       $form_action = '/buscar_revistas_admin';
       include_once __DIR__ . "/../plantillas/buscador_revistas.php";
@@ -174,15 +183,17 @@
             <th>Actualizar</th>
          </tr>
       </thead>
+
       <tbody class="informacion-datos"> <?php foreach ($datos as $revista): ?>
             <tr>
-
 
                <td>
                   <?php echo s($revista->nombre); ?>
                </td>
 
                <td><?php echo s($revista->categoria); ?></td>
+
+               <!-- -----------------------Enlace de la revista-->
                <td> <a href="<?php echo s($revista->enlace); ?>" target="_blank">
                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="enlace" viewBox="0 0 16 16">
                         <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z" />
@@ -190,9 +201,21 @@
                      </svg>
                   </a>
                </td>
-               <td><?php echo s($revista->accesibilidad); ?></td>
-               <td><?php echo s($revista->pais); ?></td>
-               <td><?php echo s($revista->tipo_revista); ?></td>
+               <!-- -----------------------Fin enlace de la revista -->
+
+               <td>
+                  <?php echo s($revista->accesibilidad); ?>
+               </td>
+
+               <td>
+                  <?php echo s($revista->pais); ?>
+               </td>
+
+               <td>
+                  <?php echo s($revista->tipo_revista); ?>
+               </td>
+
+               <!-- -----------------------Enlace de descarga -->
                <td>
                   <?php if (!empty(trim($revista->documento_url))): ?>
                      <?php $documento_url = trim($revista->documento_url); ?>
@@ -203,8 +226,12 @@
                               <path d="M8.5 9.438V8.5h-1v.938a1 1 0 0 1-.03.243l-.4 1.598.93.62.93-.62-.4-1.598a1 1 0 0 1-.03-.243" />
                               <path d="M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m2.5 8.5v.938l-.4 1.599a1 1 0 0 0 .416 1.074l.93.62a1 1 0 0 0 1.109 0l.93-.62a1 1 0 0 0 .415-1.074l-.4-1.599V8.5a1 1 0 0 0-1-1h-1a1 1 0 0 0-1 1m1-5.5h-1v1h1v1h-1v1h1v1H9V6H8V5h1V4H8V3h1V2H8V1H6.5v1h1z" />
                            </svg>
+                        <?php elseif ($extension === 'cls'|| $extension === 'bib'): ?>
+                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="descargar" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-2v-1h2a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5zM1.928 15.849v-3.337h1.136v-.662H0v.662h1.134v3.337zm4.689-3.999h-.894L4.9 13.289h-.035l-.832-1.439h-.932l1.228 1.983-1.24 2.016h.862l.853-1.415h.035l.85 1.415h.907l-1.253-1.992zm1.93.662v3.337h-.794v-3.337H6.619v-.662h3.064v.662H8.546Z" />
+                           </svg>
                         <?php else: ?>
-                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="descargar" viewBox=" 0 0 16 16">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="descargar" viewBox="0 0 16 16">
                               <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M5.485 6.879l1.036 4.144.997-3.655a.5.5 0 0 1 .964 0l.997 3.655 1.036-4.144a.5.5 0 0 1 .97.242l-1.5 6a.5.5 0 0 1-.967.01L8 9.402l-1.018 3.73a.5.5 0 0 1-.967-.01l-1.5-6a.5.5 0 1 1 .97-.242z" />
                            </svg>
                         <?php endif; ?>
@@ -216,7 +243,7 @@
                      </svg>
                   <?php endif; ?>
                   <!-- Visualizar los documentos -->
-                  <?php if (!empty(trim($revista->documento_url)) && $extension !== 'zip'): ?>
+                  <?php if (!empty(trim($revista->documento_url)) && $extension !== 'zip' && $extension !=='cls' && $extension !== 'bib'): ?>
                      <a href="#" onclick="onGetFile('documentos/revistas/<?php echo s($revista->documento_url); ?>'); return false;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="visualizar" viewBox="0 0 16 16">
                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
@@ -232,16 +259,9 @@
                      </div>
                   <?php endif; ?>
                </td>
+               <!-- -----------------------Fin enlace de descarga -->
 
-
-
-
-
-
-
-
-
-
+               <!-- ----------------------- actualizar datos eliminar/editar -->
                <td>
                   <a href="/editar?id=<?php echo $revista->id; ?>">
                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="editar" viewBox="0 0 16 16">
@@ -255,23 +275,17 @@
                         <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
                      </svg>
                   </a>
-
-
-
                </td>
+               <!-- -----------------------Fin actualizar datos eliminar/editar -->
+
             </tr>
          <?php endforeach; ?>
       </tbody>
 
-
-
    </table>
-
 
 </div>
 
 <?php
-$script = "
-  <script src='build/js/app.js'></script>
-";
+$script = "<script src='build/js/app.js'></script>";
 ?>

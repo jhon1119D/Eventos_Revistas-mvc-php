@@ -119,7 +119,7 @@ class Usuario extends ActiveRecord
 
 
 
-  
+
 
 
     // Función para cuando se olvida de la contraseña
@@ -130,7 +130,7 @@ class Usuario extends ActiveRecord
         if ($usuario) {
             // Asegurarse de que los valores sean exactamente iguales
             if (trim($usuario->nombre) === trim($nombreUsuario) && trim($usuario->telefono) === trim($telefonoUsuario)) {
-               
+
                 // Validación de la longitud de la nueva contraseña 
                 if (strlen($nuevaContrasena) < 4) {
                     self::$alertas['error'][] = 'La nueva contraseña debe tener al menos 4 caracteres.';
@@ -179,9 +179,11 @@ class Usuario extends ActiveRecord
 
         if (!$this->telefono) {
             self::$alertas['error'][] = 'Ingrese un teléfono';
-        } elseif (!preg_match('/^[0-9]{10}$/', $this->telefono)) {
-            self::$alertas['error'][] = 'El teléfono que ingreso no es valido';
+        } elseif (!preg_match('/^[0-9]{7,12}$/', $this->telefono)) {
+            self::$alertas['error'][] = 'El teléfono que ingresó no es válido. Debe contener entre 7 y 12 dígitos.';
         }
+        
+
 
 
 

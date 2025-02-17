@@ -114,12 +114,14 @@
 .advertencia{
   box-shadow: 0 2px 4px rgba(0, 0, 0, 8);
   background-color: #fff;
- 
   border-radius: 5px;
+  p{
+    font-size: 1.3rem;
+  }
 }
 
 
-//Marco de advertencias
+//Mensaje de bienvenida del usuario
 .mensaje {
   display: grid;
   grid-template-columns: 1fr;

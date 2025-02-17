@@ -29,7 +29,7 @@
 
     include_once __DIR__ . "../../plantillas/Menu.php";
     ?>
-    
+
     <h1>Actualizar evento</h1>
     <div class="contenedor-sm">
 
@@ -87,43 +87,72 @@
             </div>
             <!-- ------------------------------------- -->
 
-            <div class="campo">
-                <label for="fecha">Fecha:</label>
-                <input
-                    type="date"
-                    id="fecha"
-                    name="fecha"
-                    value="<?php echo s($eventos->fecha); ?>" />
-            </div>
 
-            <div class="campo">
-                <label for="fechaAcep">Fecha aceptación:</label>
+            <fieldset>
+                <legend>Fechas Importantes</legend>
 
-                <?php if ($eventos->fechaAcep == '1111-11-11'): ?>
-
+                <div class="campo">
+                    <label for="fecha">Fecha subida:</label>
                     <input
                         type="date"
-                        id="fechaAcep"
-                        name="fechaAcep"
-                        value="" />
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="descargar-zip" viewBox="0 0 16 16">
-                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
-                    </svg>
+                        id="fecha"
+                        name="fecha"
+                        value="<?php echo s($eventos->fecha); ?>" />
+                </div>
 
-                <?php else: ?>
-                    <input
-                        type="date"
-                        id="fechaAcep"
-                        name="fechaAcep"
-                        value="<?php echo s($eventos->fechaAcep); ?>" />
-                <?php endif; ?>
+                <div class="campo">
+                    <label for="fechaAcep">Fecha aceptación:</label>
 
-            </div>
+                    <?php if ($eventos->fechaAcep == '1111-11-11'): ?>
+
+                        <input
+                            type="date"
+                            id="fechaAcep"
+                            name="fechaAcep"
+                            value="" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="descargar-zip" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                        </svg>
+
+                    <?php else: ?>
+                        <input
+                            type="date"
+                            id="fechaAcep"
+                            name="fechaAcep"
+                            value="<?php echo s($eventos->fechaAcep); ?>" />
+                    <?php endif; ?>
+
+                </div>
+                <div class="campo">
+                    <label for="fecha_registro">Fecha registro:</label>
+
+                    <?php if ($eventos->fecha_registro == '1111-11-11'): ?>
+
+                        <input
+                            type="date"
+                            id="fecha_registro"
+                            name="fecha_registro"
+                            value="" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="descargar-zip" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                        </svg>
+
+                    <?php else: ?>
+                        <input
+                            type="date"
+                            id="fecha_registro"
+                            name="fecha_registro"
+                            value="<?php echo s($eventos->fecha_registro); ?>" />
+                    <?php endif; ?>
+
+                </div>
+            </fieldset>
 
             <div class="campo">
                 <label for="archivo">Subir plantilla:</label>
-                <input type="file" id="archivo" name="archivo" accept=".pdf, .doc, .docx">
+                <input type="file" id="archivo" name="archivo" accept=".doc, .docx, .tex, .zip, .cls, .bib, .txt">
             </div>
             <input type="submit" class="boton" value="Actualizar evento">
 

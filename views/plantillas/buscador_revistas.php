@@ -63,7 +63,7 @@
             </select>
         </div>
 
-        <button  type="submit" name="reset" class="boton">Mostrar Todos</button>
+        <button  type="submit" name="reset" class="boton">Mostrar todas</button>
         <input  type="submit" class="boton" value="buscar" >
 
     </form>

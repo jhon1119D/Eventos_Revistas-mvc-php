@@ -16,7 +16,7 @@
     if (isset($_SESSION['email']) && $_SESSION['email'] === 'lenciso@utpl.edu.ec') {
         $menu_links .= '
 <li class="li__links">
-<a href="/actualizar_codigo" class="link">Administradores</a>
+<a href="/paginaAdministrador" class="link">Administradores</a>
 </li>';
     }
 

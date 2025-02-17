@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Model\Revista;
+use Model\Usuario;
 use MVC\Router;
 
 class RevistasController
@@ -15,6 +16,8 @@ class RevistasController
 
         $alertas = [];
         $datos = Revista::all();
+
+
         //MENSAJE DE EXITO
         if (isset($_SESSION['mensaje_exito'])) {
             Revista::setAlerta('exito', $_SESSION['mensaje_exito']);
@@ -32,7 +35,7 @@ class RevistasController
 
                 if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] == UPLOAD_ERR_OK) {
                     $tipoArchivo = pathinfo($_FILES['archivo']['name'], PATHINFO_EXTENSION);
-                    $tiposPermitidos = ['doc', 'docx', 'xlsx', 'tex', 'zip'];
+                    $tiposPermitidos = ['doc', 'docx', 'tex', 'zip', 'cls', 'bib', 'txt'];
 
 
                     if (in_array($tipoArchivo, $tiposPermitidos)) {
@@ -84,8 +87,6 @@ class RevistasController
 
         if ($revista) {
             Revista::eliminarArchivo($revista->documento_url);
-
-            
         }
 
         $revista->eliminar();
@@ -116,8 +117,18 @@ class RevistasController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $revistas->sincronizar($_POST);
+
+            // Obtener el id del usuario basado en su correo electrónico
+            $correo_especifico = 'lenciso@utpl.edu.ec'; // reemplaza con el correo deseado
+            $usuario = Usuario::where('email', $correo_especifico);
+            if ($usuario) {
+                $revistas->usuario_id = $usuario->id;
+            } else {
+                // Manejar el caso donde no se encuentra el usuario
+                $revistas->usuario_id = NULL; // o cualquier otro manejo que desees
+            }
             $alertas = $revistas->validarRevistas();
-            
+
             if (empty($alertas)) {
                 // Eliminar el archivo existente si se sube un nuevo archivo
                 if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] == UPLOAD_ERR_OK) {
@@ -161,10 +172,11 @@ class RevistasController
     // -----------------------------BUSCAR---------------------FUNCIÓN PRIVADA DEL CONTROLADOR
     public static function buscar()
     {
+        $datos = Revista::all();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['reset'])) {
                 $datos = Revista::all();
-                Revista::setAlerta('buscar', 'Se mostraron todas las revistas.');
+                Revista::setAlerta('buscar', 'Lista completa de revistas.');
             } else {
                 // Obtener los términos de búsqueda
                 $nombre = $_POST['nombre'] ?? '';
@@ -191,6 +203,36 @@ class RevistasController
         return $datos ?? [];
     }
     // -----------------------------BUSCAR---------------------FUNCIÓN PRIVADA DEL CONTROLADOR
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -224,5 +266,5 @@ class RevistasController
     }
     // -----------------------------BUSCAR---------------------FUNCIÓN PARA USUARIOS
 
-    
+
 }

@@ -110,4 +110,19 @@ input[type="file"] {
   transform: rotate(90deg);
 }
 
+fieldset {
+  border: 5px solid v.$indigo;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+legend {
+  background-color:v.$indigo;
+  color: v.$blanco;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 1rem;
+}
+
 

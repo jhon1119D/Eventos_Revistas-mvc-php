@@ -28,7 +28,7 @@
 <!-- Footer -->
 <footer>
     <div>
-        <h1 class="footer-content">&copy; 2024-2025 Jhon Anthony Saavedra Merino. </h1>
+        <h1 class="footer-content">&copy; Universidad Técnica Particular de Loja. 2024-2025 </h1>
     </div>
 </footer>
 

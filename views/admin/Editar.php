@@ -118,7 +118,7 @@
 
          <div class="campo">
             <label for="archivo">Subir plantilla:</label>
-            <input type="file" id="archivo" name="archivo" accept=".pdf, .doc, .docx">
+            <input type="file" id="archivo" name="archivo" accept=".doc, .docx, .tex, .zip, .cls, .bib, .txt">
          </div>
 
          <input type="submit" class="boton" value="Actualizar revista">

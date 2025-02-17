@@ -32,11 +32,13 @@
 
 
    <h1>Administrador de eventos</h1>
+
+   <!-- Mensaje de aprendizaje del proyecto -->
    <div class="advertencia">
-      <p>En esta página, puedes gestionar todos los eventos registrados en el sistema. Utiliza el botón en la parte inferior para registrar un nuevo evento. En la parte de abajo, encontrarás una lista de todos los eventos registrados, donde puedes previsualizarlos, buscarlos, eliminarlos o editarlos según sea necesario. Esta funcionalidad te permite mantener la información actualizada y gestionar los eventos de manera eficiente.</p>
+      <p>En esta página, puedes gestionar todos los eventos registrados en el sistema. Utiliza el botón en la parte inferior para registrar un nuevo evento. En la parte de abajo encontrarás una lista de todos los eventos registrados, donde puedes previsualizarlos, buscarlos, eliminarlos o editarlos según sea necesario.</p>
    </div>
 
-
+   <!-- Boton para deslizar el formulario de registro -->
    <button id="mostrarFormulario" class="boton-añadir">
       Registrar un evento <span class="icono">+</span>
    </button>
@@ -48,12 +50,12 @@
 
    <div class="contenedor-sm hidden" id="formularioRevistas">
 
-
+      <!-- -----------------------------INICIO FORMULARIO -->
       <form class="formulario" method="POST" action="/Eventos" enctype="multipart/form-data">
          <p class="descripcion-pagina">Formulario registro de eventos</p>
 
 
-
+         <!-- ----------------------------- -->
          <div class="campo">
             <label for="titulo">Título:</label>
             <input
@@ -64,6 +66,8 @@
                value="<?php echo s($eventos->titulo); ?>" />
          </div>
          <!-- ------------------------------------- -->
+
+         <!-- ----------------------------- -->
          <div class="campo">
             <label for="acronimo">Acrónimo:</label>
             <input
@@ -73,8 +77,9 @@
                placeholder="Acrónimo"
                value="<?php echo s($eventos->acronimo); ?>" />
          </div>
+         <!-- ----------------------------- -->
 
-
+         <!-- ----------------------------- -->
          <div class="campo">
             <label for="ranking">Ranking:</label>
             <select id="ranking" name="ranking">
@@ -86,7 +91,9 @@
                <option value="<?php echo s('Unranked'); ?>" <?php echo $eventos->ranking == 'Unranked' ? 'selected' : ''; ?>>Unranked</option>
             </select>
          </div>
+         <!-- ----------------------------- -->
 
+         <!-- ----------------------------- -->
          <div class="campo">
             <label for="enlace">Enlace:</label>
             <input
@@ -98,49 +105,80 @@
          </div>
          <!-- ------------------------------------- -->
 
-         <div class="campo">
-            <label for="fecha">Fecha:</label>
-            <input
-               type="date"
-               id="fecha"
-               name="fecha"
-               value="<?php echo s($eventos->fecha); ?>" />
-         </div>
-         <div class="campo">
-            <label for="fechaAcep">Fecha aceptación:</label>
-
-            <?php if ($eventos->fechaAcep == '1111-11-11'): ?>
-
+         <!-- -----------------------------FECHAS IMPORTANTES-->
+         <fieldset>
+            <legend>Fechas Importantes</legend>
+            <div class="campo">
+               <label for="fecha">Fecha de subida:</label>
                <input
                   type="date"
-                  id="fechaAcep"
-                  name="fechaAcep"
-                  value="" />
-               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="descargar-zip" viewBox="0 0 16 16">
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                  <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
-               </svg>
+                  id="fecha"
+                  name="fecha"
+                  value="<?php echo s($eventos->fecha); ?>" />
+            </div>
+            <!-- ------------------------------------- -->
 
-            <?php else: ?>
-               <input
-                  type="date"
-                  id="fechaAcep"
-                  name="fechaAcep"
-                  value="<?php echo s($eventos->fechaAcep); ?>" />
-            <?php endif; ?>
+            <!-- ------------------------------------- -->
+            <div class="campo">
+               <label for="fechaAcep">Fecha de aceptación:</label>
+               <?php if ($eventos->fechaAcep == '1111-11-11'): ?>
+                  <input
+                     type="date"
+                     id="fechaAcep"
+                     name="fechaAcep"
+                     value="" />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="descargar-zip" viewBox="0 0 16 16">
+                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                     <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                  </svg>
+               <?php else: ?>
+                  <input
+                     type="date"
+                     id="fechaAcep"
+                     name="fechaAcep"
+                     value="<?php echo s($eventos->fechaAcep); ?>" />
+               <?php endif; ?>
+            </div>
+            <!-- ------------------------------------- -->
 
-         </div>
+            <!-- ------------------------------------- -->
+            <div class="campo">
+               <label for="fecha_registro">Fecha de registro:</label>
+               <?php if ($eventos->fecha_registro == '1111-11-11'): ?>
+                  <input
+                     type="date"
+                     id="fecha_registro"
+                     name="fecha_registro"
+                     value="" />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="descargar-zip" viewBox="0 0 16 16">
+                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                     <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                  </svg>
+               <?php else: ?>
+                  <input
+                     type="date"
+                     id="fecha_registro"
+                     name="fecha_registro"
+                     value="<?php echo s($eventos->fecha_registro); ?>" />
+               <?php endif; ?>
+            </div>
+            <!-- ------------------------------------- -->
 
+         </fieldset>
+         <!-- ----------------------------- FIN DE FECHAS IMPORTANTES-->
+
+         <!-- ------------------------------------- -->
          <div class="campo">
             <label for="archivo">Subir plantilla:</label>
-            <input type="file" id="archivo" name="archivo" accept=".pdf, .doc, .docx, .tex, .zip">
+            <input type="file" id="archivo" name="archivo" accept=".doc, .docx, .tex, .zip, .cls, .bib, .txt">
          </div>
-
-
+         <!-- ------------------------------------- -->
 
          <input type="submit" class="boton" value="Añadir registro">
 
       </form>
+      <!-- -------------------------------------FIN FORMULARIO-->
+
    </div>
 
 
@@ -160,51 +198,88 @@
             <th>Enlace</th>
             <th>Ranking</th>
             <th>Acrónimo</th>
-            <th>Fecha</th>
+            <th>Fecha subida</th>
             <th>Fecha aceptación</th>
+            <th>Fecha registro</th>
             <th>Documento</th>
             <th>Actualizar</th>
          </tr>
       </thead>
       <tbody class="informacion-datos"> <?php foreach ($datos as $evento): ?>
             <tr>
-               <td><?php echo s($evento->titulo); ?></td>
-               <td> <a href="<?php echo s($evento->enlace); ?>" target="_blank">
+               <td>
+                  <?php echo s($evento->titulo); ?>
+               </td>
+               <!-- -----------------------Enlace de la revista-->
+               <td>
+                  <a href="<?php echo s($evento->enlace); ?>" target="_blank">
                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="enlace" viewBox="0 0 16 16">
                         <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z" />
                         <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z" />
                      </svg>
                   </a>
                </td>
-               <td><?php echo s($evento->ranking); ?></td>
-               <td><?php echo s($evento->acronimo); ?></td>
-               <td><?php echo s($evento->fecha); ?></td>
+               <!-- -----------------------Fin enlace de la revista -->
+
+               <td>
+                  <?php echo s($evento->ranking); ?>
+               </td>
+
+               <td>
+                  <?php echo s($evento->acronimo); ?>
+               </td>
+
+               <!-- -----------------------Fecha de subida -->
+               <td>
+                  <?php echo s($evento->fecha); ?>
+               </td>
+               <!-- -----------------------Fin fecha de subida -->
+
+               <!-- -----------------------Fecha de aceptación -->
                <td>
                   <?php if ($evento->fechaAcep === '11-11-1111'): ?>
-                     <!-- SVG de atencion -->
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="descargar-zip" viewBox="0 0 16 16">
-                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                     <!-- SVG de no hay fecha-->
+                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                        <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9" />
+                        <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z" />
                      </svg>
                   <?php else: ?>
                      <?php echo s($evento->fechaAcep); ?>
                   <?php endif; ?>
                </td>
+               <!-- -----------------------fin fecha de aceptación -->
 
+               <!-- -----------------------Fecha de registro -->
+               <td>
+                  <?php if ($evento->fecha_registro === '11-11-1111'): ?>
+                     <!-- SVG de no hay fecha-->
+                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                        <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9" />
+                        <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z" />
+                     </svg>
+                  <?php else: ?>
+                     <?php echo s($evento->fecha_registro); ?>
+                  <?php endif; ?>
+               </td>
+               <!-- -----------------------fin fecha de registro -->
 
-
+               <!-- -----------------------Enlace de descarga -->
                <td>
                   <?php if (!empty(trim($evento->documento_url))): ?>
                      <?php $documento_url = trim($evento->documento_url); ?>
                      <?php $extension = strtolower(pathinfo($documento_url, PATHINFO_EXTENSION)); ?>
-                     <a href="documentos/revistas/<?php echo s($evento->documento_url); ?>" download>
+                     <a href="documentos/eventos/<?php echo s($evento->documento_url); ?>" download>
                         <?php if ($extension === 'zip'): ?>
                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="descargar-zip" viewBox="0 0 16 16">
                               <path d="M8.5 9.438V8.5h-1v.938a1 1 0 0 1-.03.243l-.4 1.598.93.62.93-.62-.4-1.598a1 1 0 0 1-.03-.243" />
                               <path d="M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m2.5 8.5v.938l-.4 1.599a1 1 0 0 0 .416 1.074l.93.62a1 1 0 0 0 1.109 0l.93-.62a1 1 0 0 0 .415-1.074l-.4-1.599V8.5a1 1 0 0 0-1-1h-1a1 1 0 0 0-1 1m1-5.5h-1v1h1v1h-1v1h1v1H9V6H8V5h1V4H8V3h1V2H8V1H6.5v1h1z" />
                            </svg>
+                        <?php elseif ($extension === 'cls' || $extension === 'bib'): ?>
+                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="descargar" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-2v-1h2a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5zM1.928 15.849v-3.337h1.136v-.662H0v.662h1.134v3.337zm4.689-3.999h-.894L4.9 13.289h-.035l-.832-1.439h-.932l1.228 1.983-1.24 2.016h.862l.853-1.415h.035l.85 1.415h.907l-1.253-1.992zm1.93.662v3.337h-.794v-3.337H6.619v-.662h3.064v.662H8.546Z" />
+                           </svg>
                         <?php else: ?>
-                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="descargar" viewBox=" 0 0 16 16">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="descargar" viewBox="0 0 16 16">
                               <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M5.485 6.879l1.036 4.144.997-3.655a.5.5 0 0 1 .964 0l.997 3.655 1.036-4.144a.5.5 0 0 1 .97.242l-1.5 6a.5.5 0 0 1-.967.01L8 9.402l-1.018 3.73a.5.5 0 0 1-.967-.01l-1.5-6a.5.5 0 1 1 .97-.242z" />
                            </svg>
                         <?php endif; ?>
@@ -216,7 +291,7 @@
                      </svg>
                   <?php endif; ?>
                   <!-- Visualizar los documentos -->
-                  <?php if (!empty(trim($evento->documento_url)) && $extension !== 'zip'): ?>
+                  <?php if (!empty(trim($evento->documento_url)) && $extension !== 'zip' && $extension !== 'cls' && $extension!== 'bib'): ?>
                      <a href="#" onclick="onGetFile('documentos/eventos/<?php echo s($evento->documento_url); ?>'); return false;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="visualizar" viewBox="0 0 16 16">
                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
@@ -232,8 +307,9 @@
                      </div>
                   <?php endif; ?>
                </td>
+               <!-- -----------------------Fin enlace de descarga -->
 
-
+               <!-- ----------------------- actualizar datos eliminar/editar -->
                <td>
                   <a href="/editar_evento?id=<?php echo $evento->id; ?>">
                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="editar" viewBox="0 0 16 16">
@@ -247,12 +323,11 @@
                      </svg>
                   </a>
                </td>
+               <!-- -----------------------Fin actualizar datos eliminar/editar -->
             </tr>
          <?php endforeach; ?>
       </tbody>
 
-
    </table>
-
 
 </div>
