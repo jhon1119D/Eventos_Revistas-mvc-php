@@ -147,7 +147,7 @@
 
          <div class="campo">
             <label for="archivo">Subir plantilla:</label>
-            <input type="file" id="archivo" name="archivo" accept=".doc, .docx, .tex, .zip, .cls, .bib, .txt">
+            <input type="file" id="archivo" name="archivo" accept=".doc, .docx, .tex, .zip, .cls, .bib, .txt, .pdf">
 
          </div>
          <!-- -------------------------------------->

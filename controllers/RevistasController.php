@@ -35,7 +35,7 @@ class RevistasController
 
                 if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] == UPLOAD_ERR_OK) {
                     $tipoArchivo = pathinfo($_FILES['archivo']['name'], PATHINFO_EXTENSION);
-                    $tiposPermitidos = ['doc', 'docx', 'tex', 'zip', 'cls', 'bib', 'txt'];
+                    $tiposPermitidos = ['doc', 'docx', 'tex', 'zip', 'cls', 'bib', 'txt', 'pdf'];
 
 
                     if (in_array($tipoArchivo, $tiposPermitidos)) {

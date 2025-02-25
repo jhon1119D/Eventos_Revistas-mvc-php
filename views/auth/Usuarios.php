@@ -100,7 +100,7 @@
             </div>
 
 
-            <input type="submit" class="boton" value="Regristrar usuario">
+            <input type="submit" class="boton" value="Registrar usuario">
         </form>
 
 
